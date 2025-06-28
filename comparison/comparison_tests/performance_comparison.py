@@ -383,7 +383,7 @@ class PerformanceComparison:
             
             # 2. Quantum Advantage by Problem Size
             ax2 = fig.add_subplot(gs[0, 2])
-            problem_sizes = [4, 5, 6, 7, 8, 9][:len(quantum_distances)]
+            problem_sizes = list(range(4, 4 + len(quantum_distances)))
             improvements = []
             for i in range(len(classical_distances)):
                 if classical_distances[i] > 0:
@@ -454,13 +454,19 @@ class PerformanceComparison:
             
             # 6. Quantum Shots vs Problem Size
             ax6 = fig.add_subplot(gs[2, 0])
-            if hasattr(self.quantum_results[0], 'enhanced_shots_used'):
-                shots_used = [r.get('enhanced_shots_used', r['quantum_metadata']['shots']) 
-                             for r in self.quantum_results]
-            else:
-                shots_used = [r['quantum_metadata']['shots'] for r in self.quantum_results]
+            shots_used = []
+            for r in self.quantum_results:
+                if 'enhanced_shots_used' in r:
+                    shots_used.append(r['enhanced_shots_used'])
+                elif 'quantum_metadata' in r and r['quantum_metadata'] and 'shots' in r['quantum_metadata']:
+                    shots_used.append(r['quantum_metadata']['shots'])
+                else:
+                    shots_used.append(0)  # Classical fallback case
             
-            ax6.plot(problem_sizes, shots_used, 'o-', color='purple', linewidth=2, markersize=8)
+            # Ensure problem_sizes matches the number of results
+            actual_problem_sizes = list(range(4, 4 + len(self.quantum_results)))
+            
+            ax6.plot(actual_problem_sizes, shots_used, 'o-', color='purple', linewidth=2, markersize=8)
             ax6.set_xlabel('Problem Size (Cities)', fontsize=11)
             ax6.set_ylabel('Quantum Shots Used', fontsize=11)
             ax6.set_title('Quantum Resources\nvs Problem Complexity', fontsize=12, fontweight='bold')
@@ -470,7 +476,7 @@ class PerformanceComparison:
             ax7 = fig.add_subplot(gs[2, 1:])
             
             # Calculate quantum advantage trend
-            x_trend = problem_sizes
+            x_trend = actual_problem_sizes
             y_trend = improvements
             
             # Fit a trend line
