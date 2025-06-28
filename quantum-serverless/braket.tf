@@ -44,6 +44,10 @@ resource "aws_s3_bucket_lifecycle_configuration" "braket_results" {
     id     = "quantum_results_lifecycle"
     status = "Enabled"
 
+    filter {
+      prefix = ""
+    }
+
     expiration {
       days = 30  # Delete objects after 30 days to control costs
     }

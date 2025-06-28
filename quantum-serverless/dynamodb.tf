@@ -1,7 +1,7 @@
 # DynamoDB table for storing quantum optimization results
 resource "aws_dynamodb_table" "results" {
   name           = "demo-quantum-results-${random_string.suffix.result}"
-  billing_mode   = "ON_DEMAND"
+  billing_mode   = "PAY_PER_REQUEST"
   hash_key       = "id"
 
   attribute {
@@ -47,7 +47,7 @@ resource "aws_dynamodb_table" "results" {
 # DynamoDB table for quantum experiment metadata
 resource "aws_dynamodb_table" "experiments" {
   name           = "demo-quantum-experiments-${random_string.suffix.result}"
-  billing_mode   = "ON_DEMAND"
+  billing_mode   = "PAY_PER_REQUEST"
   hash_key       = "experiment_id"
 
   attribute {

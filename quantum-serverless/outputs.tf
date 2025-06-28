@@ -1,6 +1,6 @@
 output "api_gateway_url" {
   description = "URL of the API Gateway"
-  value       = aws_api_gateway_deployment.main.invoke_url
+  value       = "https://${aws_api_gateway_rest_api.main.id}.execute-api.${data.aws_region.current.name}.amazonaws.com/${aws_api_gateway_stage.main.stage_name}"
 }
 
 output "lambda_function_name" {
@@ -53,7 +53,7 @@ output "test_curl_command" {
   description = "Sample curl command to test the API"
   value = format(
     "curl -X POST '%s/optimize' -H 'Content-Type: application/json' -H 'x-api-key: %s' -d '{\"cities\": [[0,0], [1,1], [2,0], [1,2]], \"algorithm\": \"qaoa\"}'",
-    aws_api_gateway_deployment.main.invoke_url,
+    "https://${aws_api_gateway_rest_api.main.id}.execute-api.${data.aws_region.current.name}.amazonaws.com/${aws_api_gateway_stage.main.stage_name}",
     aws_api_gateway_api_key.main.value
   )
   sensitive = true
