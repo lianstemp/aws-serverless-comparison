@@ -5,3 +5,6 @@
 */classical-optimizer.zip
 */poetry.lock
 */.env
+
+# Ignore Python cache files
+**/__pycache__
