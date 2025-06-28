@@ -1,0 +1,12 @@
+aws_region = "us-east-1"
+environment = "demo"
+project_name = "quantum"
+cost_alert_threshold = 20
+alert_email = "your-email@example.com"
+api_throttle_rate = 5
+api_throttle_burst = 10
+api_quota_limit = 100
+lambda_timeout = 900
+lambda_memory_size = 512
+braket_device_arn = "arn:aws:braket:::device/quantum-simulator/amazon/sv1"
+max_quantum_qubits = 10

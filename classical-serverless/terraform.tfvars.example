@@ -1,0 +1,10 @@
+aws_region = "us-east-1"
+environment = "demo"
+project_name = "classical"
+cost_alert_threshold = 5
+alert_email = "your-email@example.com"
+api_throttle_rate = 10
+api_throttle_burst = 20
+api_quota_limit = 1000
+lambda_timeout = 3
+lambda_memory_size = 128
