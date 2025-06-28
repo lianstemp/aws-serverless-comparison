@@ -1,8 +1,8 @@
-# AWS Summit Demo: Classical vs Quantum Serverless Architectures
+# Classical vs Quantum Serverless Architectures
 
 ![AWS Serverless Architectures](https://img.shields.io/badge/AWS-Serverless-orange) ![Terraform](https://img.shields.io/badge/Infrastructure-Terraform-blue) ![Python](https://img.shields.io/badge/Language-Python-green) ![Quantum](https://img.shields.io/badge/Computing-Quantum-purple)
 
-A comprehensive demonstration comparing Classical and Quantum-Enhanced Serverless Architectures on AWS, showcasing the performance differences in solving the Traveling Salesman Problem (TSP) optimization.
+A comprehensive comparison of Classical and Quantum-Enhanced Serverless Architectures on AWS, showcasing the performance differences in solving the Traveling Salesman Problem (TSP) optimization.
 
 ## 🏗️ Architecture Overview
 
@@ -24,7 +24,7 @@ Internet → API Gateway → Lambda → Amazon Braket → Lambda → DynamoDB
 
 ## 📊 Performance Comparison Results
 
-The comparison tests demonstrate significant differences between classical and quantum approaches:
+The comparison tests show significant differences between classical and quantum approaches:
 
 ### Quantum Performance Summary
 ![Quantum Performance Summary](comparison/quantum_performance_summary.png)
@@ -167,7 +167,7 @@ poetry run performance-comparison
 
 **Classical API:**
 ```bash
-curl -X POST "https://your-classical-api.amazonaws.com/demo/optimize" \
+curl -X POST "https://your-classical-api.amazonaws.com/prod/optimize" \
   -H "Content-Type: application/json" \
   -H "x-api-key: your-api-key" \
   -d '{"cities": [[0,0], [1,1], [2,0], [1,2]], "algorithm": "nearest_neighbor"}'
@@ -175,7 +175,7 @@ curl -X POST "https://your-classical-api.amazonaws.com/demo/optimize" \
 
 **Quantum API:**
 ```bash
-curl -X POST "https://your-quantum-api.amazonaws.com/demo/optimize" \
+curl -X POST "https://your-quantum-api.amazonaws.com/prod/optimize" \
   -H "Content-Type: application/json" \
   -H "x-api-key: your-api-key" \
   -d '{"cities": [[0,0], [1,1], [2,0], [1,2]], "algorithm": "qaoa", "shots": 100}'
@@ -197,6 +197,6 @@ curl -X POST "https://your-quantum-api.amazonaws.com/demo/optimize" \
 
 ---
 
-**⚠️ Important**: This demo is for educational purposes. Always monitor AWS costs when running quantum workloads, as they can be significantly more expensive than classical alternatives.
+**⚠️ Important**: This project is for educational purposes. Always monitor AWS costs when running quantum workloads, as they can be significantly more expensive than classical alternatives.
 
-**🔬 Research Note**: The quantum algorithms demonstrated here represent current capabilities. As quantum hardware improves, the performance advantages for certain problem types will become more pronounced.
+**🔬 Research Note**: The quantum algorithms implemented here represent current capabilities. As quantum hardware improves, the performance advantages for certain problem types will become more pronounced.
