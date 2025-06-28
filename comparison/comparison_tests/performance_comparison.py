@@ -515,7 +515,8 @@ class PerformanceComparison:
             ax7.text(max(x_trend), 10, 'Quantum Advantage Threshold', 
                     va='bottom', ha='right', fontsize=10, color='green', fontweight='bold')
             
-            plt.tight_layout()
+            # Use constrained layout instead of tight_layout to avoid warnings
+            plt.subplots_adjust(hspace=0.4, wspace=0.4)
             
             # Save high-quality plots
             plt.savefig('quantum_vs_classical_comprehensive.png', dpi=300, bbox_inches='tight', 
