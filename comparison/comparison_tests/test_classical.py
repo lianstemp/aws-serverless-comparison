@@ -176,11 +176,15 @@ def benchmark_classical():
         else:
             print(f"  Failed!")
 
-if __name__ == "__main__":
+def main():
+    """Main function for Poetry script entry point."""
     if len(sys.argv) > 1:
         if sys.argv[1] == "benchmark":
             benchmark_classical()
         else:
-            print("Usage: python test-classical.py [benchmark]")
+            print("Usage: test-classical [benchmark]")
     else:
         run_classical_tests()
+
+if __name__ == "__main__":
+    main()
