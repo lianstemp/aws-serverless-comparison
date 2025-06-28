@@ -1,1 +1,6 @@
 */terraform.tfvars
+*/.terraform
+*/.terraform.lock.hcl
+*/terraform.tfstate
+*/classical-optimizer.zip
+*/poetry.lock
