@@ -138,20 +138,6 @@ The comparison framework measures:
 | **Cost per Request** | ~$0.0001 | ~$0.01-0.10 |
 | **Scalability** | Up to ~20 cities efficiently | Limited by current quantum hardware |
 
-## 💰 Cost Considerations
-
-### Classical Architecture (AWS Free Tier Friendly)
-- **API Gateway**: 1M requests/month (limited to 1000/month)
-- **Lambda**: 1M requests/month, 400k GB-seconds
-- **DynamoDB**: 25GB storage, 25 RCU/WCU
-- **Monthly Budget Alert**: $5
-
-### Quantum Architecture (⚠️ Monitor Costs)
-- **Amazon Braket Simulator**: $0.075 per minute
-- **Enhanced Lambda**: 512MB memory, 15-minute timeout
-- **API Gateway**: Limited to 100 requests/month
-- **Monthly Budget Alert**: $20
-
 ## 🛠️ Infrastructure as Code
 
 All infrastructure is managed using Terraform with:
@@ -201,21 +187,6 @@ curl -X POST "https://your-quantum-api.amazonaws.com/demo/optimize" \
 - [Quantum-Enhanced Serverless Architecture](quantum-serverless/README.md)
 - [Performance Comparison Guide](comparison/README.md)
 
-## 🔧 Troubleshooting
-
-### Common Issues
-
-1. **Terraform State Lock**: Run `terraform force-unlock <LOCK_ID>` if needed
-2. **API Gateway 429 Errors**: Check rate limiting in usage plans
-3. **Quantum Timeout**: Increase Lambda timeout for complex quantum problems
-4. **Braket Service Limits**: Monitor quantum task queue in AWS Console
-
-### Monitoring
-
-- **CloudWatch Dashboards**: Custom metrics for both architectures
-- **Cost Budgets**: Automated alerts for cost thresholds
-- **Performance Logs**: Detailed execution metrics in CloudWatch
-
 ## 🤝 Contributing
 
 1. Fork the repository
@@ -223,24 +194,6 @@ curl -X POST "https://your-quantum-api.amazonaws.com/demo/optimize" \
 3. Make your changes
 4. Add tests for new functionality
 5. Submit a pull request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- AWS for providing the serverless infrastructure
-- Amazon Braket team for quantum computing services
-- The quantum computing community for algorithm implementations
-- Terraform for infrastructure as code capabilities
-
-## 📞 Support
-
-For questions or issues:
-1. Check the [troubleshooting section](#-troubleshooting)
-2. Review the individual README files in each architecture folder
-3. Create an issue in this repository
 
 ---
 
