@@ -2,7 +2,7 @@
 name = "aws-serverless-comparison"
 version = "0.1.0"
 description = "Performance comparison tools for Classical vs Quantum Serverless Architectures"
-authors = ["Your Name <your.email@example.com>"]
+authors = ["Farhan Aulianda <farhan@vessail.app>"]
 readme = "README.md"
 packages = [{include = "comparison_tests"}]
 
