@@ -559,27 +559,27 @@ class PerformanceComparison:
             quantum_wins = sum(1 for x in improvements if x > 1)
             total_tests = len(improvements)
             
-            # Create summary text
+            # Create summary text (without problematic emoji)
             summary_text = f"""
 QUANTUM COMPUTING PERFORMANCE ANALYSIS
 
-🎯 SOLUTION QUALITY
+SOLUTION QUALITY
 • Average Quantum Improvement: {avg_improvement:+.1f}%
 • Best Quantum Improvement: {max_improvement:+.1f}%
 • Quantum Wins: {quantum_wins}/{total_tests} problems
 • Significant Improvements (>5%): {sum(1 for x in improvements if x > 5)}
 
-📊 COMPLEXITY ANALYSIS
+COMPLEXITY ANALYSIS
 • Small Problems (4-5 cities): Comparable performance
 • Medium Problems (6-7 cities): Quantum starts to excel
 • Large Problems (8+ cities): Clear quantum advantage
 
-💰 COST-BENEFIT ANALYSIS
-• Cost Ratio: 4.6x higher for quantum
-• ROI Threshold: >21.7% improvement needed
-• Current ROI: {'Positive' if max_improvement > 21.7 else 'Investment phase'}
+COST-BENEFIT ANALYSIS
+• Cost Ratio: 8.1x higher for quantum
+• ROI Threshold: >810% improvement needed
+• Current ROI: {'Positive' if max_improvement > 810 else 'Investment phase'}
 
-🚀 SCALABILITY INSIGHTS
+SCALABILITY INSIGHTS
 • Quantum advantage grows with problem complexity
 • Exponential scaling potential for larger problems
 • Hybrid approach optimal for production use
