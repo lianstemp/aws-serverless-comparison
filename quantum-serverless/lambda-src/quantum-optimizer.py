@@ -4,10 +4,10 @@ import uuid
 import time
 import logging
 import os
-import asyncio
+import math
+import random
 from typing import List, Tuple, Dict, Any, Optional
 from decimal import Decimal
-import numpy as np
 
 # Configure logging
 logger = logging.getLogger()
@@ -97,7 +97,7 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             'algorithm': algorithm,
             'cities_count': len(cities),
             'route': solution['route'],
-            'total_distance': float(solution['distance']),
+            'total_distance': solution['distance'],  # Keep as is, will convert to Decimal in store_result
             'execution_time_seconds': execution_time,
             'timestamp': int(time.time()),
             'cities': cities,
@@ -180,8 +180,8 @@ def vqe_tsp(cities: List[List[float]], shots: int, max_iterations: int, experime
             'task_arn': task_metadata.get('task_arn'),
             'device_type': 'simulator',
             'convergence_info': {
-                'iterations': np.random.randint(10, max_iterations),
-                'final_energy': float(solution['distance']) * -1  # Negative energy minimization
+                'iterations': random.randint(10, max_iterations),
+                'final_energy': solution['distance'] * -1  # Negative energy minimization
             }
         }
         
@@ -209,7 +209,7 @@ def quantum_inspired_tsp(cities: List[List[float]], shots: int) -> Dict[str, Any
     
     for _ in range(iterations):
         # Add quantum-inspired randomness to starting city
-        start_city = np.random.randint(0, len(cities))
+        start_city = random.randint(0, len(cities) - 1)
         solution = nearest_neighbor_tsp_from_start(cities, start_city)
         
         if solution['distance'] < best_distance:
@@ -291,36 +291,47 @@ def calculate_quantum_advantage(solution: Dict[str, Any], cities: List[List[floa
 def log_experiment(experiment_id: str, status: str, algorithm: str, cities_count: int):
     """Log experiment metadata to DynamoDB."""
     try:
-        experiments_table.put_item(
-            Item={
-                'experiment_id': experiment_id,
-                'status': status,
-                'algorithm': algorithm,
-                'cities_count': cities_count,
-                'timestamp': int(time.time()),
-                'ttl': int(time.time() + 86400 * 30)  # 30 days TTL
-            }
-        )
+        experiment_item = convert_floats_to_decimal({
+            'experiment_id': experiment_id,
+            'status': status,
+            'algorithm': algorithm,
+            'cities_count': cities_count,
+            'timestamp': int(time.time()),
+            'ttl': int(time.time() + 86400 * 30)  # 30 days TTL
+        })
+        
+        experiments_table.put_item(Item=experiment_item)
     except Exception as e:
         logger.error(f"Failed to log experiment: {str(e)}")
+
+def convert_floats_to_decimal(obj):
+    """Recursively convert float values to Decimal for DynamoDB compatibility."""
+    if isinstance(obj, float):
+        return Decimal(str(obj))
+    elif isinstance(obj, dict):
+        return {key: convert_floats_to_decimal(value) for key, value in obj.items()}
+    elif isinstance(obj, list):
+        return [convert_floats_to_decimal(item) for item in obj]
+    else:
+        return obj
 
 def store_result(result: Dict[str, Any]):
     """Store optimization result in DynamoDB."""
     try:
-        # Convert floats to Decimal for DynamoDB
-        dynamodb_item = {
+        # Convert all floats to Decimal for DynamoDB
+        dynamodb_item = convert_floats_to_decimal({
             'id': result['id'],
             'experiment_id': result['experiment_id'],
             'algorithm': result['algorithm'],
             'cities_count': result['cities_count'],
             'route': result['route'],
-            'total_distance': Decimal(str(result['total_distance'])),
-            'execution_time_seconds': Decimal(str(result['execution_time_seconds'])),
+            'total_distance': result['total_distance'],
+            'execution_time_seconds': result['execution_time_seconds'],
             'timestamp': result['timestamp'],
             'cities': result['cities'],
             'quantum_metadata': result['quantum_metadata'],
             'device_arn': result['device_arn']
-        }
+        })
         
         results_table.put_item(Item=dynamodb_item)
         logger.info(f"Stored result with ID: {result['id']}")
