@@ -8,11 +8,16 @@ import requests
 import json
 import time
 import sys
+import os
 from typing import List, Dict, Any
+from dotenv import load_dotenv
 
-# Configuration - Update these with your actual values
-API_URL = "https://your-api-id.execute-api.us-east-1.amazonaws.com/demo"
-API_KEY = "your-api-key-here"
+# Load environment variables
+load_dotenv()
+
+# Configuration from environment variables
+API_URL = os.getenv("CLASSICAL_API_URL")
+API_KEY = os.getenv("CLASSICAL_API_KEY")
 
 def test_classical_api(cities: List[List[float]], algorithm: str = "nearest_neighbor") -> Dict[str, Any]:
     """Test the classical optimization API."""
@@ -179,4 +184,3 @@ if __name__ == "__main__":
             print("Usage: python test-classical.py [benchmark]")
     else:
         run_classical_tests()
-        benchmark_classical()

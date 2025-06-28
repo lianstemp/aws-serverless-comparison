@@ -9,10 +9,11 @@ import json
 import time
 import sys
 from typing import List, Dict, Any
+import os
 
 # Configuration - Update these with your actual values
-API_URL = "https://your-quantum-api-id.execute-api.us-east-1.amazonaws.com/demo"
-API_KEY = "your-quantum-api-key-here"
+API_URL = os.getenv("QUANTUM_API_URL")
+API_KEY = os.getenv("QUANTUM_API_KEY")
 
 def test_quantum_api(cities: List[List[float]], algorithm: str = "qaoa", shots: int = 1000, max_iterations: int = 50) -> Dict[str, Any]:
     """Test the quantum optimization API."""
