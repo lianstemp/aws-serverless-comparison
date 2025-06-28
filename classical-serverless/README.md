@@ -1,6 +1,6 @@
-# Classical Serverless Architecture - AWS Demo
+# Classical Serverless Architecture
 
-This project demonstrates a classical serverless architecture using AWS services, designed to stay within the AWS Free Tier limits.
+This project implements a classical serverless architecture using AWS services, designed to stay within the AWS Free Tier limits.
 
 ## Architecture Overview
 
