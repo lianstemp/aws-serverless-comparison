@@ -12,12 +12,17 @@ import sys
 from typing import List, Dict, Any, Tuple
 import matplotlib.pyplot as plt
 import numpy as np
+import os
+from dotenv import load_dotenv
 
-# Configuration - Update these with your actual values
-CLASSICAL_API_URL = "https://your-classical-api-id.execute-api.us-east-1.amazonaws.com/demo"
-QUANTUM_API_URL = "https://your-quantum-api-id.execute-api.us-east-1.amazonaws.com/demo"
-CLASSICAL_API_KEY = "your-classical-api-key"
-QUANTUM_API_KEY = "your-quantum-api-key"
+# Load environment variables
+load_dotenv()
+
+# Configuration from environment variables
+CLASSICAL_API_URL = os.getenv("CLASSICAL_API_URL")
+CLASSICAL_API_KEY = os.getenv("CLASSICAL_API_KEY")
+QUANTUM_API_URL = os.getenv("QUANTUM_API_URL")
+QUANTUM_API_KEY = os.getenv("QUANTUM_API_KEY")
 
 class PerformanceComparison:
     """Compare classical vs quantum serverless architectures."""
